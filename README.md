@@ -1,4 +1,4 @@
-# Proje Adı
+# Portfolyo
 
 Kısa proje açıklaması buraya gelecek. Bu projenin ne yaptığını ve neden faydalı olduğunu birkaç cümleyle açıklayın.
 
