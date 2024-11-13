@@ -1,3 +1,5 @@
+import { HiCode, HiCube, HiDatabase } from "react-icons/hi";
+
 export const config = {
     developer: {
         name: "Fr3zy",
@@ -16,26 +18,106 @@ export const config = {
             description: "A modern and responsive portfolio website to showcase my projects, skills, and experiences. Built with Next.js and styled using TailwindCSS, this site provides a seamless user experience and a clean design that adapts to all devices.",
             image: "/projects/portfolio-app.png",
             technologies: ["Next.js", "TailwindCSS", "Framer Motion", "Vercel"],
-            github: "https://github.com/yourusername/portfolio-website",
+            github: "https://github.com/fr3zyy/portfolio-website",
             demo: "https://fr3zy.vercel.app"
         },
         {
             id: 2,
-            title: "Real-time Analytics Dashboard",
-            description: "A comprehensive analytics dashboard providing real-time insights and data visualization for business metrics and user behavior.",
-            image: "https://cdn.discordapp.com/attachments/1291103278041403392/1306030982863917116/image.png?ex=67352fa3&is=6733de23&hm=3b28b43cf461ed044b02959ec859afa4673e2c3c78982ccc46886cd097dad707&",
-            technologies: ["React", "D3.js", "WebSocket", "Firebase"],
-            github: "https://github.com",
-            demo: "https://fr3zy.vercel.app"
+            title: "Code Share Website",
+            description: "A platform that allows users to share and review their code and profiles.",
+            image: "/projects/code-share-app.png",
+            technologies: ["Next.js", "MongoDB", "Express"],
+            demo: "https://nirvania.xyz"
         },
         {
             id: 3,
-            title: "Social Media Manager",
-            description: "All-in-one social media management tool for scheduling posts, analyzing engagement, and managing multiple accounts.",
-            image: "https://cdn.discordapp.com/attachments/1291103278041403392/1306030982863917116/image.png?ex=67352fa3&is=6733de23&hm=3b28b43cf461ed044b02959ec859afa4673e2c3c78982ccc46886cd097dad707&",
-            technologies: ["React", "Redux", "Node.js", "MongoDB"],
+            title: "Wytra Bot",
+            description: "Enhance your server, simplify moderation, and boost engagement with a versatile Discord bot equipped with customizable commands and powerful features.",
+            image: "/projects/wytra-bot-app.png",
+            technologies: ["React", "Discord.js", "Node.js", "MongoDB"],
             github: "https://github.com",
-            demo: "https://fr3zy.vercel.app"
+            demo: "https://wytra.fun"
+        }
+    ],
+    skills: [
+        {
+            title: "Frontend",
+            icon: <HiCode />,
+            description: "Modern web interfaces",
+            bgClass: "bg-blue-500/10",
+            iconClass: "text-blue-500",
+            skills: [
+                {
+                    name: "Next.js 15",
+                    level: "Advanced",
+                    hot: true,
+                },
+                {
+                    name: "React",
+                    level: "Advanced",
+                },
+                {
+                    name: "TailwindCSS",
+                    level: "Expert",
+                },
+                {
+                    name: "JavaScript",
+                    level: "Advanced",
+                },
+                {
+                    name: "Framer Motion",
+                    level: "Intermediate",
+                }
+            ]
+        },
+        {
+            title: "Backend",
+            icon: <HiDatabase />,
+            description: "Server & Database",
+            bgClass: "bg-emerald-500/10",
+            iconClass: "text-emerald-500",
+            skills: [
+                {
+                    name: "Node.js",
+                    level: "Advanced",
+                    hot: true,
+                },
+                {
+                    name: "MongoDB",
+                    level: "Advanced",
+                },
+                {
+                    name: "Express.js",
+                    level: "Advanced",
+                    hot: true,
+                }
+            ]
+        },
+        {
+            title: "Programs & Tools",
+            icon: <HiCube />,
+            description: "Development & Productivity Tools",
+            bgClass: "bg-orange-500/10",
+            iconClass: "text-orange-500",
+            skills: [
+                {
+                    name: "VS Code",
+                    level: "Expert",
+                    hot: true,
+                },
+                {
+                    name: "Postman",
+                    level: "Advanced",
+                },
+                {
+                    name: "Photoshop",
+                    level: "Intermediate",
+                },
+                {
+                    name: "Git",
+                    level: "Advanced",
+                },
+            ]
         }
     ]
 }
