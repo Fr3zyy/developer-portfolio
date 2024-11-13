@@ -1,121 +1,193 @@
 "use client"
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HiChip, HiCode, HiDatabase, HiCube, HiSparkles } from 'react-icons/hi';
-import { Card } from '@/components/ui/card';
+import { HiChip, HiSparkles, HiCode, HiDatabase, HiCube } from 'react-icons/hi';
+import { Badge } from "@/components/ui/badge";
 import { cn } from '@/lib/utils';
-import { config } from '@/config';
+
+const getLevelPercentage = (level) => {
+    switch (level) {
+        case 'Expert': return 95;
+        case 'Advanced': return 85;
+        case 'Intermediate': return 70;
+        case 'Beginner': return 50;
+        default: return 75;
+    }
+};
 
 const containerAnimation = {
     hidden: { opacity: 0 },
     show: {
         opacity: 1,
-        transition: { staggerChildren: 0.1 }
+        transition: {
+            staggerChildren: 0.1
+        }
     }
 };
 
 const itemAnimation = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            ease: [0.23, 1, 0.32, 1]
+        }
+    }
 };
 
-const SkillsSection = () => {
-    const skillCategories = config.skills;
+const SkillCard = ({ skill, bgClass }) => {
+    const levelPercentage = getLevelPercentage(skill.level);
+    const gradientClass = {
+        'bg-blue-500/10': 'from-blue-500/80 to-blue-500',
+        'bg-emerald-500/10': 'from-emerald-500/80 to-emerald-500',
+        'bg-orange-500/10': 'from-orange-500/80 to-orange-500'
+    }[bgClass] || 'from-primary/80 to-primary';
 
     return (
-        <section className="py-24 relative" id="skills">
-            <div className="container mx-auto px-6">
-                <div className="space-y-6 text-center mb-16">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="inline-flex items-center space-x-2 bg-secondary/10 border border-secondary/20 px-4 py-2 rounded-full text-primary backdrop-blur-sm"
-                    >
-                        <HiChip className="w-5 h-5" />
-                        <span className="text-sm font-medium">Technical Skills</span>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="space-y-4"
-                    >
-                        <h2 className="text-4xl md:text-5xl font-bold text-primary">
-                            My Tech Expertise
-                        </h2>
-                        <p className="text-muted-foreground max-w-xl mx-auto">
-                            Specialized in full-stack development with a focus on modern web technologies
-                            and cloud solutions.
-                        </p>
-                    </motion.div>
+        <motion.div
+            variants={itemAnimation}
+            className="relative flex flex-col h-full"
+        >
+            <div className="relative h-full p-4 rounded-xl border border-zinc-800/50
+                          hover:border-zinc-700/50 transition-all duration-300">
+                <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-base font-medium text-primary/90">
+                        {skill.name}
+                    </h3>
+                    {skill.hot && (
+                        <Badge variant="secondary" className="bg-amber-500/10 text-amber-500 border-none px-2 py-0 text-xs">
+                            <HiSparkles className="w-3 h-3 mr-1" />
+                            Hot
+                        </Badge>
+                    )}
                 </div>
 
+                <div className="h-1.5 bg-zinc-800/50 rounded-full overflow-hidden">
+                    <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${levelPercentage}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: 0.2 }}
+                        className={cn("h-full bg-gradient-to-r rounded-full", gradientClass)}
+                    />
+                </div>
+
+                <div className="mt-2 flex justify-between items-center text-xs">
+                    <span className="text-muted-foreground">Proficiency</span>
+                    <span className="font-medium text-primary">{skill.level}</span>
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+
+const CategorySection = ({ category }) => (
+    <div className="space-y-6">
+        <div className="flex items-center gap-3">
+            <div className={cn("p-2.5 rounded-xl", category.bgClass)}>
+                <div className={cn("w-5 h-5", category.iconClass)}>
+                    {category.icon}
+                </div>
+            </div>
+            <div>
+                <h3 className="text-xl font-semibold text-primary">{category.title}</h3>
+                <p className="text-sm text-muted-foreground">{category.description}</p>
+            </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {category.skills.map((skill, idx) => (
+                <SkillCard key={idx} skill={skill} bgClass={category.bgClass} />
+            ))}
+        </div>
+    </div>
+);
+
+const SkillsSection = () => {
+    const skills = [
+        {
+            title: "Frontend",
+            icon: <HiCode />,
+            description: "Modern web interfaces",
+            bgClass: "bg-blue-500/10",
+            iconClass: "text-blue-500",
+            skills: [
+                { name: "Next.js 15", level: "Advanced", hot: true },
+                { name: "React", level: "Advanced" },
+                { name: "TailwindCSS", level: "Expert" },
+                { name: "JavaScript", level: "Advanced" },
+                { name: "Framer Motion", level: "Intermediate" }
+            ]
+        },
+        {
+            title: "Backend",
+            icon: <HiDatabase />,
+            description: "Server & Database",
+            bgClass: "bg-emerald-500/10",
+            iconClass: "text-emerald-500",
+            skills: [
+                { name: "Node.js", level: "Advanced", hot: true },
+                { name: "MongoDB", level: "Advanced" },
+                { name: "Express.js", level: "Advanced", hot: true }
+            ]
+        },
+        {
+            title: "Programs & Tools",
+            icon: <HiCube />,
+            description: "Development & Productivity Tools",
+            bgClass: "bg-orange-500/10",
+            iconClass: "text-orange-500",
+            skills: [
+                { name: "VS Code", level: "Expert", hot: true },
+                { name: "Postman", level: "Advanced" },
+                { name: "Photoshop", level: "Intermediate" },
+                { name: "Git", level: "Advanced" }
+            ]
+        }
+    ];
+
+    return (
+        <section className="py-24" id="skills">
+            <div className="container mx-auto px-6">
                 <motion.div
                     variants={containerAnimation}
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+                    className="space-y-16"
                 >
-                    {skillCategories.map((category, index) => (
+                    <div className="max-w-2xl mx-auto text-center space-y-6">
                         <motion.div
-                            key={index}
                             variants={itemAnimation}
-                            className="group"
+                            className="inline-flex items-center space-x-2 bg-secondary/10 border-[1.8px] border-zinc-900/70 px-4 py-2 rounded-full text-primary backdrop-blur-sm"
                         >
-                            <Card className="h-full bg-secondary/5 border-secondary/20 overflow-hidden hover:bg-secondary/10 transition-colors duration-300">
-                                <div className="p-6 space-y-6">
-                                    <div className="space-y-4">
-                                        <div className="flex items-start justify-between">
-                                            <div className="flex items-center gap-3">
-                                                <div className={cn("p-2.5 rounded-xl", category.bgClass)}>
-                                                    <div className={cn("w-6 h-6", category.iconClass)}>
-                                                        {category.icon}
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h3 className="text-lg font-semibold text-primary">
-                                                        {category.title}
-                                                    </h3>
-                                                    <p className="text-sm text-muted-foreground">
-                                                        {category.description}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        {category.skills.map((skill, idx) => (
-                                            <motion.div
-                                                key={idx}
-                                                initial={{ opacity: 0 }}
-                                                whileInView={{ opacity: 1 }}
-                                                viewport={{ once: true }}
-                                                transition={{ delay: 0.1 + idx * 0.1 }}
-                                                className="p-3 rounded-xl bg-secondary/30 border-[1.9px] border-zinc-800/50 hover:bg-secondary/20 transition-colors duration-300 group cursor-default"
-                                            >
-                                                <div className="flex items-center justify-between">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-sm font-medium text-primary">
-                                                            {skill.name}
-                                                        </span>
-                                                        {skill.hot && (
-                                                            <div className="flex items-center gap-0.5 text-amber-500 text-xs">
-                                                                <HiSparkles className="w-3.5 h-3.5" />
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </Card>
+                            <HiChip className="w-5 h-5 text-primary" />
+                            <span className="text-sm font-medium text-primary">
+                                Skills & Technologies
+                            </span>
                         </motion.div>
-                    ))}
+
+                        <motion.div variants={itemAnimation} className="space-y-2">
+                            <h2 className="text-3xl md:text-4xl font-bold text-primary">
+                                Technical Proficiency
+                            </h2>
+                            <p className="text-lg text-muted-foreground">
+                                A comprehensive overview of my technical expertise across various
+                                development domains and tools.
+                            </p>
+                        </motion.div>
+                    </div>
+
+                    <motion.div
+                        variants={containerAnimation}
+                        className="space-y-16"
+                    >
+                        {skills.map((category, index) => (
+                            <CategorySection key={index} category={category} />
+                        ))}
+                    </motion.div>
                 </motion.div>
             </div>
         </section>

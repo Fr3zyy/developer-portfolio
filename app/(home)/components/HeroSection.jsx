@@ -110,7 +110,7 @@ const HeroSection = () => {
 
           <motion.div
             variants={itemAnimation}
-            className="mt-12 w-full mx-auto" // genişliği arttırdık
+            className="mt-12 w-full mx-auto"
           >
             <LanyardPlayer />
           </motion.div>

@@ -9,8 +9,8 @@ const ActivityCard = ({
     subText,
     additionalText,
     isSpotify,
-    startTime, // Şarkının başlama zamanı
-    endTime // Şarkının bitiş zamanı
+    startTime,
+    endTime
 }) => {
     const [currentProgress, setCurrentProgress] = useState(0);
     const duration = endTime - startTime;
@@ -18,13 +18,10 @@ const ActivityCard = ({
     useEffect(() => {
         if (!isSpotify || !startTime || !endTime) return;
 
-        // İlk progress'i hesapla
         setCurrentProgress(Date.now() - startTime);
 
-        // Her saniye progress'i güncelle
         const interval = setInterval(() => {
             const newProgress = Date.now() - startTime;
-            // Eğer şarkı bitmişse interval'i temizle
             if (newProgress >= duration) {
                 clearInterval(interval);
             } else {
@@ -72,7 +69,6 @@ const ActivityCard = ({
                         </span>
                     )}
 
-                    {/* Spotify Progress Bar */}
                     {isSpotify && startTime && endTime && (
                         <div className="mt-2 space-y-1">
                             <div className="w-full h-1 bg-secondary/20 rounded-full overflow-hidden">

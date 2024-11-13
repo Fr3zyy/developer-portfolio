@@ -44,13 +44,7 @@ const ITEMS_PER_PAGE = 6;
 const GITHUB_API_URL = `https://api.github.com/users/${config.social.github}/repos`;
 
 const fetcher = async (url) => {
-    const res = await fetch(url, {
-        headers: {
-            'Accept': 'application/vnd.github.v3+json',
-            // Eğer rate limit sorunları yaşıyorsanız, GitHub token'ınızı ekleyebilirsiniz
-            // 'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`
-        }
-    });
+    const res = await fetch(url);
 
     if (!res.ok) {
         const errorData = await res.json();
