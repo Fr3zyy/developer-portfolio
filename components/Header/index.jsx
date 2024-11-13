@@ -83,7 +83,7 @@ const Logo = () => (
 
 const Navigation = () => (
     <motion.nav
-        className="hidden md:flex space-x-8"
+        className="hidden md:flex space-x-2"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.5 }}
