@@ -6,6 +6,14 @@ module.exports = {
 		"./components/**/*.{js,ts,jsx,tsx,mdx}",
 		"./app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
+	safelist: [
+		'blur-sm',
+		'blur-md',
+		'blur-lg',
+		'blur-xl',
+		'blur-2xl',
+		'blur-3xl',
+	],
 	theme: {
 		extend: {
 			borderRadius: {
