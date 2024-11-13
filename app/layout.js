@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/Providers/Theme";
 import Header from "@/components/Header";
 import { Toaster } from "sonner";
+import Footer from "@/components/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,7 +40,7 @@ export default function RootLayout({ children }) {
 
           {children}
 
-
+          <Footer />
           <Toaster
             position="top-right"
             toastOptions={{
