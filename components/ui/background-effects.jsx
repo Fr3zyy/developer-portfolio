@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const variants = {
     hidden: { opacity: 0 },
@@ -9,84 +9,69 @@ const variants = {
         transition: {
             duration: 0.8,
             staggerChildren: 0.2,
-            ease: "easeOut"
-        }
-    }
+            ease: 'easeOut',
+        },
+    },
 };
 
 const blobVariants = {
     hidden: {
         opacity: 0,
-        scale: 0.8
+        scale: 0.8,
     },
     show: {
         opacity: 1,
         scale: 1,
         transition: {
             duration: 1,
-            ease: "easeOut"
-        }
-    }
+            ease: 'easeOut',
+        },
+    },
 };
 
 const BackgroundEffects = ({
     className,
-    variant = "default",
+    variant = 'default',
     colors = {
-        first: "secondary",
-        second: "secondary"
+        first: 'secondary',
+        second: 'secondary',
     },
-    intensity = "10",
-    blurAmount = "3xl"
+    intensity = '10',
+    blurAmount = '3xl',
 }) => {
-    const controls = useAnimation();
-
     const positions = {
         default: {
-            first: "top-1/4 -translate-y-1/2 left-1/4",
-            second: "bottom-1/4 translate-y-1/2 right-1/4"
+            first: 'top-1/4 -translate-y-1/2 left-1/4',
+            second: 'bottom-1/4 translate-y-1/2 right-1/4',
         },
         centered: {
-            first: "top-1/2 -translate-y-1/2 left-1/3 -translate-x-1/2",
-            second: "top-1/2 -translate-y-1/2 right-1/3 translate-x-1/2"
+            first: 'top-1/2 -translate-y-1/2 left-1/3 -translate-x-1/2',
+            second: 'top-1/2 -translate-y-1/2 right-1/3 translate-x-1/2',
         },
         diagonal: {
-            first: "top-0 left-0",
-            second: "bottom-0 right-0"
+            first: 'top-0 left-0',
+            second: 'bottom-0 right-0',
         },
         corners: {
-            first: "top-0 right-0",
-            second: "bottom-0 left-0"
-        }
+            first: 'top-0 right-0',
+            second: 'bottom-0 left-0',
+        },
     };
-
-    useEffect(() => {
-        const startAnimation = async () => {
-            await controls.start("show");
-        };
-
-        controls.set("hidden");
-        startAnimation();
-
-        return () => {
-            controls.stop();
-        };
-    }, [controls, variant, colors.first, colors.second]);
 
     return (
         <motion.div
             variants={variants}
             initial="hidden"
-            animate={controls}
+            animate="show"
             className={cn(
-                "absolute inset-0 overflow-hidden pointer-events-none",
+                'absolute inset-0 overflow-hidden pointer-events-none',
                 className
             )}
         >
             <motion.div
                 variants={blobVariants}
                 className={cn(
-                    "absolute w-96 h-96 rounded-full",
+                    'absolute w-96 h-96 rounded-full',
                     `bg-${colors.first}/${intensity}`,
                     `blur-${blurAmount}`,
                     positions[variant].first
@@ -96,7 +81,7 @@ const BackgroundEffects = ({
             <motion.div
                 variants={blobVariants}
                 className={cn(
-                    "absolute w-96 h-96 rounded-full",
+                    'absolute w-96 h-96 rounded-full',
                     `bg-${colors.second}/${intensity}`,
                     `blur-${blurAmount}`,
                     positions[variant].second
@@ -111,7 +96,7 @@ export const BackgroundPresets = {
     Subtle: () => (
         <BackgroundEffects
             variant="centered"
-            colors={{ first: "primary", second: "secondary" }}
+            colors={{ first: 'primary', second: 'secondary' }}
             intensity="5"
             blurAmount="3xl"
         />
@@ -120,7 +105,7 @@ export const BackgroundPresets = {
     Vibrant: () => (
         <BackgroundEffects
             variant="diagonal"
-            colors={{ first: "primary", second: "primary" }}
+            colors={{ first: 'primary', second: 'primary' }}
             intensity="20"
             blurAmount="3xl"
         />
@@ -129,7 +114,7 @@ export const BackgroundPresets = {
     Corner: () => (
         <BackgroundEffects
             variant="corners"
-            colors={{ first: "secondary", second: "secondary" }}
+            colors={{ first: 'secondary', second: 'secondary' }}
             intensity="10"
             blurAmount="3xl"
         />
@@ -138,11 +123,11 @@ export const BackgroundPresets = {
     Minimal: () => (
         <BackgroundEffects
             variant="default"
-            colors={{ first: "secondary", second: "secondary" }}
+            colors={{ first: 'secondary', second: 'secondary' }}
             intensity="5"
             blurAmount="3xl"
         />
-    )
+    ),
 };
 
 export default BackgroundEffects;
