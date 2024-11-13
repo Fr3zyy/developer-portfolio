@@ -101,7 +101,7 @@ const HeroSection = () => {
                 variant="expandIcon"
                 Icon={HiArrowRight}
                 iconPlacement="right"
-                className="rounded-full px-6 py-6 text-base transition-all duration-300 hover:scale-105"
+                className="rounded-full px-6 py-6 text-base transition-all duration-300 hover:scale-105 font-semibold"
               >
                 View Projects
               </Button>
