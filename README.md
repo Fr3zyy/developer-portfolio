@@ -51,4 +51,4 @@ A modern and responsive portfolio website to showcase my projects, skills, and e
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
-![Demo](images/Screenshot_1.png)
+![Thumbnail](images/Screenshot_1.png)
