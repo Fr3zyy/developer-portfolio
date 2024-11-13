@@ -50,8 +50,8 @@ export default function RootLayout({ children }) {
           />
 
           <GridPattern
-            width={160}
-            height={160}
+            width={200}
+            height={200}
             x={-1}
             y={-1}
             className={cn(

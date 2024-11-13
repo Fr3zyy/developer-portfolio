@@ -18,7 +18,7 @@ export function GridPattern({
     (<svg
       aria-hidden="true"
       className={cn(
-        "pointer-events-none absolute inset-0 -z-10 h-full w-full fill-gray-400/30 stroke-gray-200/10",
+        "pointer-events-none absolute inset-0 -z-10 h-full w-full fill-gray-400/30 stroke-gray-600/10",
         className
       )}
       {...props}>
