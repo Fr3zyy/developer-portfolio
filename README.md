@@ -1,3 +1,5 @@
+![Thumbnail ](images/Thumbnail.png)
+
 # Fr3zy - Portfolio Website
 
 A modern and responsive portfolio website to showcase my projects, skills, and experiences. Built with Next.js and styled using Tailwind CSS, this portfolio provides a seamless user experience with smooth animations and an organized layout.
@@ -51,4 +53,4 @@ A modern and responsive portfolio website to showcase my projects, skills, and e
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
-![Thumbnail](images/Screenshot_1.png)
+![Demo](images/Screenshot_1.png)
