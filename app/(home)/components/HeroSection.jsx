@@ -7,6 +7,7 @@ import { config } from '@/config';
 import Link from 'next/link';
 import { BackgroundPresets } from '@/components/ui/background-effects';
 import { motion } from 'framer-motion';
+import LanyardPlayer from './LanyardPlayer';
 
 const containerAnimation = {
   hidden: { opacity: 0 },
@@ -41,88 +42,6 @@ const textAnimation = {
       ease: "easeOut"
     }
   }
-};
-
-const LanyardPlayer = () => {
-  const [activity, setActivity] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const ws = new WebSocket('wss://api.lanyard.rest/socket');
-    
-    ws.onopen = () => {
-      ws.send(
-        JSON.stringify({
-          op: 2,
-          d: {
-            subscribe_to_id: config.social.discord,
-          },
-        })
-      );
-    };
-
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      
-      if (data.t === 'INIT_STATE' || data.t === 'PRESENCE_UPDATE') {
-        const presence = data.d;
-        if (presence.spotify) {
-          setActivity(presence.spotify);
-        } else {
-          setActivity(null);
-        }
-        setLoading(false);
-      }
-    };
-
-    return () => {
-      ws.close();
-    };
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="bg-secondary/10 border-[1.8px] border-zinc-900/70 p-4 rounded-xl backdrop-blur-sm">
-        <div className="flex items-center gap-2">
-          <HiMusicNote className="w-5 h-5 text-green-500 animate-spin" />
-          <span className="text-sm font-medium">Loading...</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (!activity) {
-    return null;
-  }
-
-  return (
-    <div className="bg-secondary/10 border-[1.8px] border-zinc-900/70 p-4 rounded-xl backdrop-blur-sm">
-      <div className="flex items-center gap-2 mb-3">
-        <HiMusicNote className="w-5 h-5 text-green-500" />
-        <span className="text-sm font-medium">Now Playing on Spotify</span>
-      </div>
-      <div className="flex items-center gap-4">
-        {activity.album_art_url && (
-          <img 
-            src={activity.album_art_url} 
-            alt={activity.album}
-            className="w-16 h-16 rounded-lg"
-          />
-        )}
-        <div className="flex flex-col">
-          <span className="font-medium text-primary">
-            {activity.song}
-          </span>
-          <span className="text-sm text-muted-foreground">
-            by {activity.artist}
-          </span>
-          <span className="text-xs text-muted-foreground mt-1">
-            on {activity.album}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
 };
 
 const HeroSection = () => {
@@ -191,7 +110,7 @@ const HeroSection = () => {
 
           <motion.div
             variants={itemAnimation}
-            className="mt-12 max-w-md mx-auto"
+            className="mt-12 w-full mx-auto" // genişliği arttırdık
           >
             <LanyardPlayer />
           </motion.div>
