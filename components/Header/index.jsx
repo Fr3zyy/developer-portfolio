@@ -43,9 +43,11 @@ const Navigation = () => (
 
 const ContactButton = () => (
     <div className="flex items-center space-x-6">
-        <Button className="rounded-2xl font-semibold">
-            <span>Contact Me</span>
-        </Button>
+        <Link href={"/contact"}>
+            <Button className="rounded-2xl font-semibold">
+                <span>Contact Me</span>
+            </Button>
+        </Link>
     </div>
 );
 
