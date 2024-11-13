@@ -201,7 +201,7 @@ const GithubProjects = () => {
                             asChild
                         >
                             <a
-                                href={`https://github.com/${config.social.githubUsername}`}
+                                href={`https://github.com/${config.social.github}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >

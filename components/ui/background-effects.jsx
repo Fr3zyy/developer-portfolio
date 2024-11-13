@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 
 const variants = {
     hidden: { opacity: 0 },
@@ -8,7 +8,8 @@ const variants = {
         opacity: 1,
         transition: {
             duration: 0.8,
-            staggerChildren: 0.2
+            staggerChildren: 0.2,
+            ease: "easeOut"
         }
     }
 };
@@ -22,7 +23,8 @@ const blobVariants = {
         opacity: 1,
         scale: 1,
         transition: {
-            duration: 1
+            duration: 1,
+            ease: "easeOut"
         }
     }
 };
@@ -37,6 +39,8 @@ const BackgroundEffects = ({
     intensity = "10",
     blurAmount = "3xl"
 }) => {
+    const controls = useAnimation();
+
     const positions = {
         default: {
             first: "top-1/4 -translate-y-1/2 left-1/4",
@@ -56,11 +60,24 @@ const BackgroundEffects = ({
         }
     };
 
+    useEffect(() => {
+        const startAnimation = async () => {
+            await controls.start("show");
+        };
+
+        controls.set("hidden");
+        startAnimation();
+
+        return () => {
+            controls.stop();
+        };
+    }, [controls, variant, colors.first, colors.second]);
+
     return (
         <motion.div
             variants={variants}
             initial="hidden"
-            animate="show"
+            animate={controls}
             className={cn(
                 "absolute inset-0 overflow-hidden pointer-events-none",
                 className
@@ -74,6 +91,7 @@ const BackgroundEffects = ({
                     `blur-${blurAmount}`,
                     positions[variant].first
                 )}
+                key={`blob-1-${colors.first}-${variant}`}
             />
             <motion.div
                 variants={blobVariants}
@@ -83,6 +101,7 @@ const BackgroundEffects = ({
                     `blur-${blurAmount}`,
                     positions[variant].second
                 )}
+                key={`blob-2-${colors.second}-${variant}`}
             />
         </motion.div>
     );
