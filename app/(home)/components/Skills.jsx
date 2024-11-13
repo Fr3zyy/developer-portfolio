@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { HiChip, HiSparkles, HiCode, HiDatabase, HiCube } from 'react-icons/hi';
 import { Badge } from "@/components/ui/badge";
 import { cn } from '@/lib/utils';
+import { config } from '@/config';
 
 const getLevelPercentage = (level) => {
     switch (level) {
@@ -106,47 +107,7 @@ const CategorySection = ({ category }) => (
 );
 
 const SkillsSection = () => {
-    const skills = [
-        {
-            title: "Frontend",
-            icon: <HiCode />,
-            description: "Modern web interfaces",
-            bgClass: "bg-blue-500/10",
-            iconClass: "text-blue-500",
-            skills: [
-                { name: "Next.js 15", level: "Advanced", hot: true },
-                { name: "React", level: "Advanced" },
-                { name: "TailwindCSS", level: "Expert" },
-                { name: "JavaScript", level: "Advanced" },
-                { name: "Framer Motion", level: "Intermediate" }
-            ]
-        },
-        {
-            title: "Backend",
-            icon: <HiDatabase />,
-            description: "Server & Database",
-            bgClass: "bg-emerald-500/10",
-            iconClass: "text-emerald-500",
-            skills: [
-                { name: "Node.js", level: "Advanced", hot: true },
-                { name: "MongoDB", level: "Advanced" },
-                { name: "Express.js", level: "Advanced", hot: true }
-            ]
-        },
-        {
-            title: "Programs & Tools",
-            icon: <HiCube />,
-            description: "Development & Productivity Tools",
-            bgClass: "bg-orange-500/10",
-            iconClass: "text-orange-500",
-            skills: [
-                { name: "VS Code", level: "Expert", hot: true },
-                { name: "Postman", level: "Advanced" },
-                { name: "Photoshop", level: "Intermediate" },
-                { name: "Git", level: "Advanced" }
-            ]
-        }
-    ];
+    const skills = config.skills;
 
     return (
         <section className="py-24" id="skills">
