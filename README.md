@@ -49,7 +49,3 @@ A modern and responsive portfolio website to showcase my projects, skills, and e
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
