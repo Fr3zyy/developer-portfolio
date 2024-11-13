@@ -9,7 +9,7 @@ const Footer = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="py-6 border-t border-secondary/20 bg-background flex items-center justify-center"
+            className="py-6 border-t border-secondary/20 flex items-center justify-center"
         >
             <div className="text-center">
                 <div className="text-sm text-muted-foreground flex items-center gap-2 justify-center">
