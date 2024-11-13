@@ -1,11 +1,13 @@
-import { HiCode, HiCube, HiDatabase } from "react-icons/hi";
+import { FaDiscord, FaGithub, FaMapPin } from "react-icons/fa";
+import { HiCode, HiCube, HiDatabase, HiMail } from "react-icons/hi";
 
 export const config = {
     developer: {
         name: "Fr3zy",
     },
     social: {
-        github: "Fr3zyy"
+        github: "Fr3zyy",
+        discord: "1155137511954337887"
     },
     NAV_ITEMS: [
         { href: '/projects', label: 'Projects' },
@@ -118,6 +120,32 @@ export const config = {
                     level: "Advanced",
                 },
             ]
+        }
+    ],
+    contactInfo: [
+        {
+            icon: <FaDiscord className="w-5 h-5" />,
+            label: "Discord",
+            value: "fr3zy",
+            link: `https://discord.com/users/1155137511954337887`
+        },
+        {
+            icon: <FaGithub className="w-5 h-5" />,
+            label: "GitHub",
+            value: "@fr3zy",
+            link: `https://github.com/fr3zyy`
+        },
+        {
+            icon: <HiMail className="w-5 h-5" />,
+            label: "Email",
+            value: "fr3zy@example.com",
+            link: "mailto:fr3zy@example.com"
+        },
+        {
+            icon: <FaMapPin className="w-5 h-5" />,
+            label: "Location",
+            value: "Turkey",
+            link: null
         }
     ]
 }
