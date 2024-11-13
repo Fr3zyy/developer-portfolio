@@ -108,7 +108,7 @@ const ContactButton = () => (
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.4, duration: 0.5 }}
     >
-        <Link href={"/contact"}>
+        <Link href={"https://github.com/Fr3zyy/developer-portfolio"} target='_blank'>
             <Button className="rounded-2xl font-semibold bg-white text-gray-900 hover:bg-gray-200">
                 Use this template!
             </Button>
