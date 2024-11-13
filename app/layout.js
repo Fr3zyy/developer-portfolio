@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/Providers/Theme";
 import Header from "@/components/Header";
 import { Toaster } from "sonner";
 import Footer from "@/components/Footer";
+import NextTopLoader from "nextjs-toploader";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,7 +36,7 @@ export default function RootLayout({ children }) {
           disableTransitionOnChange
         >
 
-
+          <NextTopLoader />
           <Header />
 
           {children}
