@@ -95,7 +95,7 @@ const ErrorAlert = ({ error, onRetry }) => (
 );
 
 const ProjectCard = ({ project }) => {
-    const lastUpdated = formatDistanceToNow(new Date(project.updated_at), { addSuffix: true });
+    const lastUpdated = formatDistanceToNow(new Date(project.last_commit_date), { addSuffix: true });
     const topics = project.topics || [];
 
     return (
