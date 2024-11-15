@@ -2,8 +2,30 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HiMusicNote, HiPlay, HiOutlineClock } from 'react-icons/hi';
+import { HiMusicNote, HiOutlineClock } from 'react-icons/hi';
 import useSWR from 'swr';
+
+const containerAnimation = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2,
+            delayChildren: 0.3
+        }
+    }
+};
+const itemAnimation = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5,
+            ease: "easeOut"
+        }
+    }
+};
 
 const fetcher = async (url) => {
     const res = await fetch(url);
@@ -36,56 +58,71 @@ const RecentTracks = () => {
 
     if (error) {
         return (
-            <div className="w-full max-w-3xl mx-auto p-4">
-                <div className="flex items-center gap-2 mb-6">
+            <motion.div
+                variants={itemAnimation}
+                initial="hidden"
+                animate="show"
+                className="w-full max-w-3xl mx-auto p-4"
+            >
+                <motion.div variants={itemAnimation} className="flex items-center gap-2 mb-6">
                     <HiMusicNote className="w-5 h-5 text-red-500" />
                     <h2 className="text-xl font-semibold">Recent Tracks</h2>
-                </div>
-                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400 text-sm">
+                </motion.div>
+                <motion.div variants={itemAnimation} className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400 text-sm">
                     Failed to load recent tracks
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
         );
     }
 
     if (isLoading) {
         return (
-            <div className="w-full max-w-3xl mx-auto p-4">
-                <div className="flex items-center gap-2 mb-6">
+            <motion.div
+                variants={itemAnimation}
+                initial="hidden"
+                animate="show"
+                className="w-full max-w-3xl mx-auto p-4"
+            >
+                <motion.div variants={itemAnimation} className="flex items-center gap-2 mb-6">
                     <HiMusicNote className="w-5 h-5 text-green-500 animate-spin" />
                     <h2 className="text-xl font-semibold">Recent Tracks</h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                </motion.div>
+                <motion.div
+                    variants={containerAnimation}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                >
                     {[...Array(6)].map((_, i) => (
-                        <div
+                        <motion.div
                             key={i}
+                            variants={itemAnimation}
                             className="animate-pulse bg-white/5 rounded-xl h-24 backdrop-blur-sm"
                         />
                     ))}
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
         );
     }
 
     return (
-        <div className="w-full max-w-3xl mx-auto p-4">
-            <div className="flex items-center gap-2 mb-6">
+        <motion.div
+            variants={containerAnimation}
+            initial="hidden"
+            animate="show"
+            className="w-full max-w-3xl mx-auto p-4"
+        >
+            <motion.div variants={itemAnimation} className="flex items-center gap-2 mb-6">
                 <HiMusicNote className="w-5 h-5 text-green-500" />
                 <h2 className="text-xl font-semibold">Recent Tracks</h2>
-            </div>
+            </motion.div>
 
             <motion.div
+                variants={containerAnimation}
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
             >
                 {recentTracks.map((track, index) => (
                     <motion.div
                         key={`${track.played_at}-${index}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1 }}
+                        variants={itemAnimation}
                         className="bg-secondary/10 border-[1.8px] border-zinc-900/70 p-4 rounded-xl backdrop-blur-sm hover:bg-secondary/20 transition-all duration-300"
                     >
                         <div className="flex gap-3">
@@ -122,7 +159,7 @@ const RecentTracks = () => {
                     </motion.div>
                 ))}
             </motion.div>
-        </div>
+        </motion.div>
     );
 };
 
