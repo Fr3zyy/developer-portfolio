@@ -53,4 +53,44 @@ A modern and responsive portfolio website to showcase my projects, skills, and e
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
+## Spotify Recent Tracks Integration
+
+### Setup Steps:
+
+1. Create Spotify App in [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
+   - Add `http://localhost:3333/callback` in Redirect URIs
+
+2. Install dependencies:
+   ```bash
+   npm install dotenv express open node-fetch
+   ```
+
+3. Create `.env` and add:
+   ```env
+   SPOTIFY_CLIENT_ID=your_client_id
+   SPOTIFY_CLIENT_SECRET=your_client_secret
+   ```
+
+4. Get refresh token:
+   ```bash
+   node scripts/spotify-auth.js
+   ```
+   - Copy token and add to `.env`:
+   ```env
+   SPOTIFY_REFRESH_TOKEN=your_refresh_token
+   ```
+
+5. Enable in config:
+   ```js
+   recentTracks: true
+   ```
+
+6. Restart server:
+   ```bash
+   npm run dev
+   ```
+
+That's it! Your recent Spotify tracks will now appear in your portfolio. 🎵
+
+
 ![Demo](images/Screenshot_1.png)
