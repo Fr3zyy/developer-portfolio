@@ -79,8 +79,8 @@ const ErrorAlert = ({ error, onRetry }) => (
         <FaExclamationCircle className="w-4 h-4" />
         <AlertDescription className="flex items-center justify-between">
             <span>
-                {error.info || 'Failed to load projects. Please try again later.'}
-                {error.status === 403 && ' (Rate limit exceeded)'}
+                Failed to load projects. Please try again later.
+                Rate limit exceeded
             </span>
             <Button
                 variant="outline"
@@ -130,7 +130,7 @@ const ProjectCard = ({ project }) => {
                     <p className="text-sm text-muted-foreground line-clamp-2">
                         {project.description || "No description provided"}
                     </p>
-                    
+
                     {topics.length > 0 && (
                         <div className="flex flex-wrap gap-2">
                             {topics.slice(0, 3).map((topic) => (
@@ -293,7 +293,7 @@ const GithubProjects = () => {
                                 )}
                             </Button>
                         )}
-                        
+
                         <Button
                             variant="expandIcon"
                             Icon={FaGithub}
