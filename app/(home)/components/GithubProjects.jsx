@@ -95,7 +95,6 @@ const ErrorAlert = ({ error, onRetry }) => (
 );
 
 const ProjectCard = ({ project }) => {
-    const lastUpdated = formatDistanceToNow(new Date(project.last_commit_date), { addSuffix: true });
     const topics = project.topics || [];
 
     return (
@@ -177,9 +176,6 @@ const ProjectCard = ({ project }) => {
                                 {project.forks_count}
                             </span>
                         </div>
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                        Updated {lastUpdated}
                     </div>
                 </div>
             </div>
