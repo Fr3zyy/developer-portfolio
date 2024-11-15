@@ -96,9 +96,6 @@ const RecentTracks = () => {
                                     className="w-16 h-16 rounded-lg shadow-lg"
                                     loading="lazy"
                                 />
-                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 rounded-lg transition-all duration-300 flex items-center justify-center">
-                                    <HiPlay className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                                </div>
                             </div>
 
                             <div className="flex-1 min-w-0">
