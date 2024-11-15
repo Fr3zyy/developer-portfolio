@@ -86,7 +86,7 @@ const RecentTracks = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="group relative bg-black/20 backdrop-blur-sm hover:bg-white/5 rounded-xl p-4 transition-all duration-300 border border-white/10"
+                        className="bg-secondary/10 border-[1.8px] border-zinc-900/70 p-4 rounded-xl backdrop-blur-sm hover:bg-secondary/20 transition-all duration-300"
                     >
                         <div className="flex gap-3">
                             <div className="relative flex-shrink-0">
