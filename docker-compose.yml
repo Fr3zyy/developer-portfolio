@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+
+  next-jsapp:
+    build: .
+    container_name: "portfolio"
+    ports:
+      - "3000:3000"
+    environment:
+       SPOTIFY_CLIENT_ID: "spotify_client_id"
+       SPOTIFY_CLIENT_SECRET: "spotify_client_secret"
+       SPOTIFY_REFRESH_TOKEN: "your_refresh_token"
+    restart: always
+  

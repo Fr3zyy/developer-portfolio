@@ -94,3 +94,21 @@ That's it! Your recent Spotify tracks will now appear in your portfolio. 🎵
 
 
 ![Demo](images/Screenshot_1.png)
+
+# Project Setup with Docker
+
+This project now supports Docker for easy setup and consistent development environment.
+
+## 🚀 Run with Docker
+
+Make sure you have Docker and Docker Compose installed.
+
+```bash
+docker-compose up --build
+
+The application will be available at:
+http://localhost:3000
+
+
+
+
