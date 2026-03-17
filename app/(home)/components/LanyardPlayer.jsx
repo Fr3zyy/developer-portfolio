@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ActivityCard from "./ActivityCard";
 import { HiMusicNote } from "react-icons/hi";
-import { SiVisualstudiocode } from "react-icons/si";
+import { BiLogoVisualStudio } from "react-icons/bi";
 import { config } from "@/config";
 
 const LanyardPlayer = () => {
@@ -75,7 +75,7 @@ const LanyardPlayer = () => {
 
             {activities.vscode && (
                 <ActivityCard
-                    icon={<SiVisualstudiocode className="w-5 h-5 text-sky-500" />}
+                    icon={<BiLogoVisualStudio className="w-5 h-5 text-sky-500" />}
                     image={`https://cdn.discordapp.com/app-assets/${activities.vscode.application_id}/${activities.vscode.assets.large_image}.png`}
                     title="Currently Developing"
                     mainText={activities.vscode.name}
