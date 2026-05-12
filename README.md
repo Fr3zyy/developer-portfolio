@@ -93,7 +93,10 @@ A modern and responsive portfolio website to showcase my projects, skills, and e
 That's it! Your recent Spotify tracks will now appear in your portfolio. 🎵
 
 
-![Demo](images/Screenshot_1.png)
+![Demo 1](images/Screenshot_1.png)
+![Demo 1](images/Screenshot_4.png)
+![Demo 2](images/Screenshot_2.png)
+![Demo 3](images/Screenshot_3.png)
 
 # Project Setup with Docker
 
