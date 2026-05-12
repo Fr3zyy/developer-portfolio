@@ -50,11 +50,10 @@ export const config = {
             bgClass: "bg-blue-500/10",
             iconClass: "text-blue-500",
             skills: [
-                { name: "Next.js 15", level: "Advanced", hot: true },
+                { name: "Next.js", level: "Advanced", hot: true },
                 { name: "React", level: "Advanced" },
                 { name: "TailwindCSS", level: "Expert" },
                 { name: "JavaScript", level: "Advanced" },
-                { name: "Framer Motion", level: "Intermediate" }
             ]
         },
         {
@@ -64,9 +63,10 @@ export const config = {
             bgClass: "bg-emerald-500/10",
             iconClass: "text-emerald-500",
             skills: [
+                { name: "C#", level: "Advanced", hot: true  },
                 { name: "Node.js", level: "Advanced", hot: true },
-                { name: "MongoDB", level: "Advanced" },
-                { name: "Express.js", level: "Advanced", hot: true }
+                { name: "MSSQL", level: "Advanced", hot: true },
+                { name: "MySQL", level: "Advanced", hot: true }
             ]
         },
         {
@@ -79,6 +79,7 @@ export const config = {
                 { name: "VS Code", level: "Expert", hot: true },
                 { name: "Postman", level: "Advanced" },
                 { name: "Photoshop", level: "Intermediate" },
+                { name: "Navicat", level: "Advanced" },
                 { name: "Git", level: "Advanced" }
             ]
         }

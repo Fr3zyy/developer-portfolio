@@ -1,152 +1,134 @@
 "use client"
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HiChip, HiSparkles, HiCode, HiDatabase, HiCube } from 'react-icons/hi';
-import { Badge } from "@/components/ui/badge";
+import { HiChip, HiSparkles } from 'react-icons/hi';
 import { cn } from '@/lib/utils';
 import { config } from '@/config';
-
-const getLevelPercentage = (level) => {
-    switch (level) {
-        case 'Expert': return 95;
-        case 'Advanced': return 85;
-        case 'Intermediate': return 70;
-        case 'Beginner': return 50;
-        default: return 75;
-    }
-};
 
 const containerAnimation = {
     hidden: { opacity: 0 },
     show: {
         opacity: 1,
-        transition: {
-            staggerChildren: 0.1
-        }
-    }
+        transition: { staggerChildren: 0.04 },
+    },
 };
 
 const itemAnimation = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     show: {
         opacity: 1,
         y: 0,
-        transition: {
-            duration: 0.4,
-            ease: [0.23, 1, 0.32, 1]
-        }
-    }
+        transition: { duration: 0.3, ease: [0.23, 1, 0.32, 1] },
+    },
 };
 
-const SkillCard = ({ skill, bgClass }) => {
-    const levelPercentage = getLevelPercentage(skill.level);
-    const gradientClass = {
-        'bg-blue-500/10': 'from-blue-500/80 to-blue-500',
-        'bg-emerald-500/10': 'from-emerald-500/80 to-emerald-500',
-        'bg-orange-500/10': 'from-orange-500/80 to-orange-500'
-    }[bgClass] || 'from-primary/80 to-primary';
+// Maps bgClass from config to chip/ring tones for the "hot" accent.
+const accentByBg = {
+    'bg-blue-500/10': {
+        ring: 'ring-blue-500/30',
+        dot: 'text-blue-400',
+        hotBg: 'bg-blue-500/10',
+    },
+    'bg-emerald-500/10': {
+        ring: 'ring-emerald-500/30',
+        dot: 'text-emerald-400',
+        hotBg: 'bg-emerald-500/10',
+    },
+    'bg-orange-500/10': {
+        ring: 'ring-orange-500/30',
+        dot: 'text-orange-400',
+        hotBg: 'bg-orange-500/10',
+    },
+};
+
+const SkillChip = ({ skill, accent }) => (
+    <motion.span
+        variants={itemAnimation}
+        className={cn(
+            'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm text-zinc-300',
+            'border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-sm',
+            'transition-colors duration-200 hover:border-zinc-700 hover:text-white',
+            skill.hot && `ring-1 ${accent.ring} ${accent.hotBg}`
+        )}
+    >
+        {skill.hot && (
+            <HiSparkles className={cn('w-3.5 h-3.5', accent.dot)} aria-hidden />
+        )}
+        {skill.name}
+    </motion.span>
+);
+
+const CategoryRow = ({ category }) => {
+    const accent = accentByBg[category.bgClass] || {
+        ring: 'ring-primary/30',
+        dot: 'text-primary',
+        hotBg: 'bg-primary/10',
+    };
 
     return (
         <motion.div
             variants={itemAnimation}
-            className="relative flex flex-col h-full"
+            className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4 md:gap-8 py-6 border-b border-zinc-900/80 last:border-b-0"
         >
-            <div className="relative h-full p-4 rounded-xl border border-zinc-800/50
-                          hover:border-zinc-700/50 transition-all duration-300">
-                <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-base font-medium text-primary/90">
-                        {skill.name}
-                    </h3>
-                    {skill.hot && (
-                        <Badge variant="secondary" className="bg-amber-500/10 text-amber-500 border-none px-2 py-0 text-xs">
-                            <HiSparkles className="w-3 h-3 mr-1" />
-                            Hot
-                        </Badge>
-                    )}
+            <div className="flex items-center gap-3">
+                <div className={cn('p-2 rounded-lg', category.bgClass)}>
+                    <div className={cn('w-4 h-4 flex items-center justify-center', category.iconClass)}>
+                        {category.icon}
+                    </div>
                 </div>
-
-                <div className="h-1.5 bg-zinc-800/50 rounded-full overflow-hidden">
-                    <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${levelPercentage}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.2 }}
-                        className={cn("h-full bg-gradient-to-r rounded-full", gradientClass)}
-                    />
-                </div>
-
-                <div className="mt-2 flex justify-between items-center text-xs">
-                    <span className="text-muted-foreground">Proficiency</span>
-                    <span className="font-medium text-primary">{skill.level}</span>
+                <div>
+                    <h3 className="text-sm font-medium text-zinc-200">{category.title}</h3>
+                    <p className="text-xs text-zinc-500">{category.description}</p>
                 </div>
             </div>
+
+            <motion.div
+                variants={containerAnimation}
+                className="flex flex-wrap gap-2 items-start"
+            >
+                {category.skills.map((skill, idx) => (
+                    <SkillChip key={idx} skill={skill} accent={accent} />
+                ))}
+            </motion.div>
         </motion.div>
     );
 };
-
-const CategorySection = ({ category }) => (
-    <div className="space-y-6">
-        <div className="flex items-center gap-3">
-            <div className={cn("p-2.5 rounded-xl", category.bgClass)}>
-                <div className={cn("w-5 h-5", category.iconClass)}>
-                    {category.icon}
-                </div>
-            </div>
-            <div>
-                <h3 className="text-xl font-semibold text-primary">{category.title}</h3>
-                <p className="text-sm text-muted-foreground">{category.description}</p>
-            </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {category.skills.map((skill, idx) => (
-                <SkillCard key={idx} skill={skill} bgClass={category.bgClass} />
-            ))}
-        </div>
-    </div>
-);
 
 const SkillsSection = () => {
     const skills = config.skills;
 
     return (
-        <section className="py-24" id="skills">
-            <div className="container mx-auto px-6">
+        <section className="py-20" id="skills">
+            <div className="container mx-auto px-6 max-w-5xl">
                 <motion.div
                     variants={containerAnimation}
                     initial="hidden"
                     whileInView="show"
-                    viewport={{ once: true }}
-                    className="space-y-16"
+                    viewport={{ once: true, margin: '-100px' }}
+                    className="space-y-10"
                 >
-                    <div className="max-w-2xl mx-auto text-center space-y-6">
+                    <div className="max-w-xl mx-auto text-center space-y-4">
                         <motion.div
                             variants={itemAnimation}
-                            className="inline-flex items-center space-x-2 bg-secondary/10 border-[1.8px] border-zinc-900/70 px-4 py-2 rounded-full text-primary backdrop-blur-sm"
+                            className="inline-flex items-center space-x-2 bg-secondary/10 border-[1.5px] border-zinc-900/70 px-3 py-1.5 rounded-full text-zinc-300 backdrop-blur-sm"
                         >
-                            <HiChip className="w-5 h-5 text-primary" />
-                            <span className="text-sm font-medium text-primary">
-                                Skills & Technologies
-                            </span>
+                            <HiChip className="w-4 h-4" />
+                            <span className="text-xs font-medium">Skills & Technologies</span>
                         </motion.div>
 
                         <motion.div variants={itemAnimation} className="space-y-2">
-                            <h2 className="text-3xl md:text-4xl font-bold text-primary">
-                                Technical Proficiency
+                            <h2 className="text-2xl md:text-3xl font-semibold text-primary tracking-tight">
+                                What I work with
                             </h2>
-                            <p className="text-lg text-muted-foreground">
-                                A comprehensive overview of my technical expertise across various
-                                development domains and tools.
+                            <p className="text-sm text-zinc-500">
+                                Tools and technologies I use to ship things.
                             </p>
                         </motion.div>
                     </div>
 
-                    <motion.div
-                        variants={containerAnimation}
-                        className="space-y-16"
-                    >
+                    <motion.div variants={containerAnimation} className="divide-y divide-zinc-900/80">
                         {skills.map((category, index) => (
-                            <CategorySection key={index} category={category} />
+                            <CategoryRow key={index} category={category} />
                         ))}
                     </motion.div>
                 </motion.div>
