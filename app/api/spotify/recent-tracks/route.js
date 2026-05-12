@@ -2,24 +2,34 @@ import { NextResponse } from 'next/server';
 import { getRecentTracks } from '@/lib/spotify';
 import { config } from '@/config';
 
+const isSpotifyConfigured = () =>
+    Boolean(
+        process.env.SPOTIFY_CLIENT_ID &&
+        process.env.SPOTIFY_CLIENT_SECRET &&
+        process.env.SPOTIFY_REFRESH_TOKEN
+    );
+
 export async function GET() {
     try {
-        if (!config.recentTracks) {
-            return NextResponse.json(
-                { error: 'Recent tracks have been turned off.' },
-                { status: 500 }
-            );
+        if (!config.recentTracks || !isSpotifyConfigured()) {
+            return NextResponse.json({ configured: false, items: [] });
         }
 
         const response = await getRecentTracks();
+
+        if (!response.ok) {
+            return NextResponse.json(
+                { configured: true, error: 'Spotify API error', items: [] },
+                { status: response.status }
+            );
+        }
+
         const data = await response.json();
-
-        return NextResponse.json(data);
-
+        return NextResponse.json({ configured: true, ...data });
     } catch (error) {
         console.error('Error in recent-tracks API:', error);
         return NextResponse.json(
-            { error: 'Error fetching recent tracks' },
+            { configured: true, error: 'Error fetching recent tracks', items: [] },
             { status: 500 }
         );
     }

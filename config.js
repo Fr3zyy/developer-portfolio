@@ -13,7 +13,7 @@ export const config = {
         { href: '/projects', label: 'Projects' },
         { href: '/contact', label: 'Contact' }
     ],
-    recentTracks: true, // Enable/disable Spotify recent tracks
+    recentTracks: false, // Enable/disable Spotify recent tracks
     projects: [
         {
             id: 1,

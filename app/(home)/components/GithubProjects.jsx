@@ -41,15 +41,15 @@ const languageColors = {
 };
 
 const ITEMS_PER_PAGE = 6;
-const GITHUB_API_URL = `https://api.github.com/users/${config.social.github}/repos`;
+const GITHUB_API_URL = '/api/github/repos';
 
 const fetcher = async (url) => {
     const res = await fetch(url);
 
     if (!res.ok) {
-        const errorData = await res.json();
+        const errorData = await res.json().catch(() => ({}));
         const error = new Error('Failed to fetch GitHub projects');
-        error.info = errorData.message;
+        error.info = errorData.error || errorData.message;
         error.status = res.status;
         throw error;
     }
@@ -79,8 +79,7 @@ const ErrorAlert = ({ error, onRetry }) => (
         <FaExclamationCircle className="w-4 h-4" />
         <AlertDescription className="flex items-center justify-between">
             <span>
-                Failed to load projects. Please try again later.
-                Rate limit exceeded
+                {error?.info || 'Failed to load projects. Please try again later.'}
             </span>
             <Button
                 variant="outline"
@@ -188,7 +187,7 @@ const GithubProjects = () => {
     const [isLoadingMore, setIsLoadingMore] = React.useState(false);
 
     const { data, error, isLoading, mutate: revalidateData } = useSWR(
-        `${GITHUB_API_URL}?sort=updated&per_page=${ITEMS_PER_PAGE * page}`,
+        `${GITHUB_API_URL}?per_page=${ITEMS_PER_PAGE * page}`,
         fetcher,
         {
             revalidateOnFocus: false,

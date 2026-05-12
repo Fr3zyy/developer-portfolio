@@ -15,11 +15,44 @@ const geistSans = localFont({
 });
 
 export const metadata = {
-  title: "Fr3zy - Fullstack Developer Portfolio",
-  description: "Experienced fullstack developer specializing in modern web technologies. View my projects, skills, and experience.",
-  keywords: "fullstack developer,backend developer, frontend developer, web development, JavaScript,JS, C#, CSharp, React, Node.js, portfolio",
-  author: "Fr3zy",
-  robots: "index, follow",
+  metadataBase: new URL('https://fr3zy.vercel.app'),
+  title: {
+    default: 'Fr3zy - Fullstack Developer Portfolio',
+    template: '%s | Fr3zy',
+  },
+  description:
+    'Experienced fullstack developer specializing in modern web technologies. View my projects, skills, and experience.',
+  keywords: [
+    'fullstack developer',
+    'backend developer',
+    'frontend developer',
+    'web development',
+    'JavaScript',
+    'React',
+    'Next.js',
+    'Node.js',
+    'C#',
+    'portfolio',
+  ],
+  authors: [{ name: 'Fr3zy' }],
+  creator: 'Fr3zy',
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: 'website',
+    siteName: 'Fr3zy',
+    title: 'Fr3zy - Fullstack Developer Portfolio',
+    description:
+      'Experienced fullstack developer specializing in modern web technologies.',
+    url: '/',
+    images: [{ url: '/logo.png', width: 1200, height: 630, alt: 'Fr3zy' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Fr3zy - Fullstack Developer Portfolio',
+    description:
+      'Experienced fullstack developer specializing in modern web technologies.',
+    images: ['/logo.png'],
+  },
 };
 
 export default function RootLayout({ children }) {

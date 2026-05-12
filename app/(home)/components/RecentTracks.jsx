@@ -56,24 +56,11 @@ const RecentTracks = () => {
 
     const recentTracks = data?.items?.slice(0, 6) || [];
 
-    if (error) {
-        return (
-            <motion.div
-                variants={itemAnimation}
-                initial="hidden"
-                animate="show"
-                className="w-full max-w-3xl mx-auto p-4"
-            >
-                <motion.div variants={itemAnimation} className="flex items-center gap-2 mb-6">
-                    <HiMusicNote className="w-5 h-5 text-red-500" />
-                    <h2 className="text-xl font-semibold">Recent Tracks</h2>
-                </motion.div>
-                <motion.div variants={itemAnimation} className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400 text-sm">
-                    Failed to load recent tracks
-                </motion.div>
-            </motion.div>
-        );
-    }
+    // Hide the whole section if Spotify isn't configured, on errors,
+    // or when there simply aren't any tracks to show.
+    if (error) return null;
+    if (!isLoading && data?.configured === false) return null;
+    if (!isLoading && recentTracks.length === 0) return null;
 
     if (isLoading) {
         return (
