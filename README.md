@@ -1,4 +1,4 @@
-![Thumbnail ](images/Thumbnail.png)
+![img](images/Thumbnail.png)
 
 # Fr3zy - Portfolio Website
 
